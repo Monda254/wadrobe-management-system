@@ -136,3 +136,12 @@ const handleSubmit = () => {
   close()
 }
 </script>
+
+interface WardrobeItem {
+  name: string;
+  category: string;
+  color: string;
+  season: string;
+  image?: string;
+  occasions: string[];
+}
