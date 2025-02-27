@@ -95,6 +95,15 @@ import { ref, defineProps, defineEmits, watch } from 'vue'
 import { useWardrobeStore } from '../stores/wardrobe'
 import type { ClothingItem } from '../stores/wardrobe'
 
+interface WardrobeItem {
+  name: string;
+  category: string;
+  color: string;
+  season: string;
+  image?: string;
+  occasions: string[];
+}
+
 const props = defineProps<{
   isOpen: boolean
   item?: ClothingItem | null
@@ -136,12 +145,3 @@ const handleSubmit = () => {
   close()
 }
 </script>
-
-interface WardrobeItem {
-  name: string;
-  category: string;
-  color: string;
-  season: string;
-  image?: string;
-  occasions: string[];
-}
