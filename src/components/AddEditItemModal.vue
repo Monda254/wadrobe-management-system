@@ -95,15 +95,6 @@ import { ref, defineProps, defineEmits, watch } from 'vue'
 import { useWardrobeStore } from '../stores/wardrobe'
 import type { ClothingItem } from '../stores/wardrobe'
 
-interface WardrobeItem {
-  name: string;
-  category: string;
-  color: string;
-  season: string;
-  image?: string;
-  occasions: string[];
-}
-
 const props = defineProps<{
   isOpen: boolean
   item?: ClothingItem | null
@@ -112,18 +103,25 @@ const props = defineProps<{
 const emit = defineEmits(['close', 'submit'])
 const wardrobeStore = useWardrobeStore()
 
-const formData = ref({
+const formData = ref<Omit<ClothingItem, 'id' | 'dateAdded' | 'timesWorn' | 'lastWorn'>>({
   name: '',
   category: wardrobeStore.categories[0],
   color: '',
   season: 'All Seasons',
   image: '',
-  occasions: ['Casual'] as string[]
+  occasions: ['Casual']
 })
 
 watch(() => props.item, (newItem) => {
   if (newItem) {
-    formData.value = { ...newItem }
+    formData.value = {
+      name: newItem.name,
+      category: newItem.category,
+      color: newItem.color,
+      season: newItem.season,
+      image: newItem.image || '',
+      occasions: newItem.occasions
+    }
   } else {
     formData.value = {
       name: '',
